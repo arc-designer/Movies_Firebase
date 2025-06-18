@@ -20,7 +20,9 @@ class MovieRepository {
                 }
 
                 val movies = snapshot?.documents?.mapNotNull { doc ->
-                    doc.toObject(Movie::class.java)
+                    val movie = doc.toObject(Movie::class.java)
+                    movie?.id = doc.id
+                    movie
                 } ?: emptyList()
 
                 trySend(movies).isSuccess
@@ -32,7 +34,7 @@ class MovieRepository {
     suspend fun addMovie(movie: Movie): Boolean {
         return try {
             db.collection("movies")
-                .add(movie.copy(id = null)) // remove id before writing
+                .add(movie.copy(id = null))
                 .await()
             true
         } catch (e: Exception) {
@@ -46,7 +48,7 @@ class MovieRepository {
             val movieId = movie.id ?: return false
             db.collection("movies")
                 .document(movieId)
-                .set(movie.copy(id = null)) // remove id before updating
+                .set(movie.copy(id = null)) //
                 .await()
             true
         } catch (e: Exception) {

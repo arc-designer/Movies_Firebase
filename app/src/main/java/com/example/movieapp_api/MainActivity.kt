@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -20,6 +18,8 @@ import com.example.movieapp_api.ui.movie.MovieListScreen
 import com.example.movieapp_api.ui.movie.MovieViewModel
 import com.example.movieapp_api.ui.register.RegisterScreen
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("movieList") {
                         MovieListScreen(
+                            viewModel = viewModel, // ✅ PASS THE SAME VIEWMODEL HERE
                             onAddMovieClick = { navController.navigate("addMovie") },
                             onEditMovieClick = { movieId ->
                                 navController.navigate("editMovie/$movieId")

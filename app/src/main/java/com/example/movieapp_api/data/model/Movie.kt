@@ -1,7 +1,5 @@
 package com.example.movieapp_api.data.model
 
-import com.google.firebase.firestore.DocumentId
-
 data class Movie(
     var id: String? = null,
     var title: String = "",

@@ -40,7 +40,13 @@ fun MovieListScreen(
             } else {
                 LazyColumn {
                     items(movies) { movie ->
-                        MovieItem(movie = movie, onClick = { movie.id?.let { onEditMovieClick(it) } })
+                        MovieItem(
+                            movie = movie,
+                            onClick = {
+                                // Safely pass ID to the edit screen
+                                movie.id?.let { onEditMovieClick(it) }
+                            }
+                        )
                     }
                 }
             }
