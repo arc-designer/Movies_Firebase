@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.example.movieapp_api.data.model.Movie
 
 @Composable
@@ -65,10 +66,26 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
             .clickable { onClick() },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
-        Column(modifier = Modifier.padding(12.dp)) {
-            Text("Title: ${movie.title}", style = MaterialTheme.typography.titleMedium)
-            Text("Year: ${movie.year}", style = MaterialTheme.typography.bodyMedium)
-            Text("Description: ${movie.description}", style = MaterialTheme.typography.bodySmall)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
+        ) {
+            if (movie.imageUrl.isNotBlank()) {
+                AsyncImage(
+                    model = movie.imageUrl,
+                    contentDescription = "Movie Image",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .padding(end = 12.dp)
+                )
+            }
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text("Title: ${movie.title}", style = MaterialTheme.typography.titleMedium)
+                Text("Year: ${movie.year}", style = MaterialTheme.typography.bodyMedium)
+                Text("Description: ${movie.description}", style = MaterialTheme.typography.bodySmall)
+            }
         }
     }
 }

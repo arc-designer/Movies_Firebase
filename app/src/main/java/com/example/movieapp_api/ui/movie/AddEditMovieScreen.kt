@@ -23,6 +23,7 @@ fun AddEditMovieScreen(
     var title by remember { mutableStateOf(existingMovie?.title ?: "") }
     var year by remember { mutableStateOf(existingMovie?.year ?: "") }
     var description by remember { mutableStateOf(existingMovie?.description ?: "") }
+    var imageUrl by remember { mutableStateOf(existingMovie?.imageUrl ?: "") }
 
     Column(
         modifier = Modifier
@@ -61,6 +62,15 @@ fun AddEditMovieScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        Spacer(modifier = Modifier.height(10.dp))
+
+        OutlinedTextField(
+            value = imageUrl,
+            onValueChange = { imageUrl = it },
+            label = { Text("Image URL") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(
@@ -71,7 +81,8 @@ fun AddEditMovieScreen(
                     id = id,
                     title = title,
                     year = year,
-                    description = description
+                    description = description,
+                    imageUrl = imageUrl
                 )
 
                 if (existingMovie == null) {
